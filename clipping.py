@@ -21,15 +21,16 @@ from pathlib import Path
 # Agrega o quita medios según tus preferencias
 # ============================================================
 FEEDS = {
-    # España
-    "El País":      "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/portada",
-    "El Mundo":     "https://e00-elmundo.uecdn.es/elmundo/rss/portada.xml",
-    "La Vanguardia":"https://www.lavanguardia.com/rss/home.xml",
-    "El Confidencial": "https://www.elconfidencial.com/rss/portada/",
-    "20 Minutos":   "https://www.20minutos.es/rss/",
+    # México
+    "El Financiero tech" :    "https://www.elfinanciero.com.mx/arc/outboundfeeds/rss/?outputType=xml" ,
+    "El País tech":     "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/tecnologia/portada",
+    "El Universal tech": "http://www.eluniversal.com.mx/rss/computo.xml",
+    "Reforma gadgets": "https://www.reforma.com/rss/gadgets.xml",
+    
     # Internacionales
     "BBC Mundo":    "https://feeds.bbci.co.uk/mundo/rss.xml",
     "Reuters":      "https://feeds.reuters.com/reuters/topNews",
+    "NYT":       "https://rss.nytimes.com/services/xml/rss/nyt/es.xml",
     # Añade los que uses tú:
     # "Medio Custom": "https://url-del-rss.com/feed",
 }
@@ -45,40 +46,53 @@ CARPETA_SALIDA = "clippings"  # Carpeta donde se guardan los archivos
 # ============================================================
 # 📥 PASO 1: Leer las noticias de los RSS
 # ============================================================
+from datetime import datetime, timezone
+import time
+
 def obtener_noticias():
     """
-    Recorre cada feed RSS y extrae título + resumen de las últimas noticias.
-    feedparser hace el trabajo pesado de parsear el XML del RSS.
+    Recorre cada feed RSS y extrae solo las noticias
+    publicadas en las últimas 12 horas.
     """
     print("📡 Leyendo feeds RSS...")
     todas_las_noticias = []
+    
+    # Calculamos el límite: hace 12 horas en UTC
+    ahora = datetime.now(timezone.utc)
+    limite = ahora.timestamp() - (12 * 60 * 60)  # 12h en segundos
 
     for nombre_medio, url_feed in FEEDS.items():
+        noticias_medio = 0
         try:
             feed = feedparser.parse(url_feed)
 
-            # Tomamos las primeras N noticias de cada medio
-            for entry in feed.entries[:NOTICIAS_POR_FUENTE]:
-                # Algunos feeds no tienen summary, usamos title como fallback
+            for entry in feed.entries:
+                # Convertimos la fecha de publicación a timestamp comparable
+                fecha_pub = entry.get('published_parsed')
+                
+                if fecha_pub:
+                    fecha_timestamp = time.mktime(fecha_pub)
+                    if fecha_timestamp < limite:
+                        continue  # ← noticia antigua, la saltamos
+                
                 resumen = getattr(entry, 'summary', entry.title)
-                # Limpiamos HTML básico del resumen si lo hubiera
                 resumen_limpio = resumen.replace('<p>', '').replace('</p>', '').strip()
 
                 todas_las_noticias.append({
                     "medio": nombre_medio,
                     "titulo": entry.title,
-                    "resumen": resumen_limpio[:300],  # máximo 300 chars
+                    "resumen": resumen_limpio[:300],
                     "link": getattr(entry, 'link', ''),
                     "fecha": getattr(entry, 'published', 'Sin fecha'),
                 })
+                noticias_medio += 1
 
-            print(f"  ✅ {nombre_medio}: {min(NOTICIAS_POR_FUENTE, len(feed.entries))} noticias")
+            print(f"  ✅ {nombre_medio}: {noticias_medio} noticias (últimas 12h)")
 
         except Exception as e:
-            # Si un feed falla (medio caído, URL cambiada), seguimos con los demás
             print(f"  ⚠️  {nombre_medio}: Error al leer ({e})")
 
-    print(f"\n📚 Total noticias recopiladas: {len(todas_las_noticias)}")
+    print(f"\n📚 Total noticias recientes: {len(todas_las_noticias)}")
     return todas_las_noticias
 
 
