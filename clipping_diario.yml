@@ -1,0 +1,64 @@
+# ============================================================
+# ⚙️ GitHub Actions — Clipping automático a las 7am
+# ============================================================
+# Este archivo le dice a GitHub cuándo y cómo ejecutar tu script.
+# Ubicación en tu repo: .github/workflows/clipping_diario.yml
+#
+# GitHub Actions es GRATIS para repos públicos y privados
+# (hasta 2.000 minutos/mes en plan gratuito, más que suficiente).
+# ============================================================
+
+name: 📱 Clipping TikTok Diario
+
+on:
+  # ⏰ Ejecutar automáticamente a las 7am (hora España peninsular = 6am UTC en verano)
+  # Formato cron: minuto hora día mes día-semana
+  # UTC+1 en invierno → 6:00 UTC = 7:00 Madrid
+  # UTC+2 en verano  → 5:00 UTC = 7:00 Madrid
+  # Para no complicarlo, ponemos 6:00 UTC (ajusta si lo necesitas)
+  schedule:
+    - cron: '0 6 * * 1-5'   # Lunes a viernes a las 6:00 UTC (7am Madrid invierno)
+
+  # 🖱️ También puedes ejecutarlo manualmente desde GitHub cuando quieras
+  workflow_dispatch:
+    inputs:
+      motivo:
+        description: '¿Por qué lo ejecutas manualmente?'
+        required: false
+        default: 'Test manual'
+
+jobs:
+  generar-clipping:
+    name: Generar clipping del día
+    runs-on: ubuntu-latest   # GitHub nos da un servidor Linux gratis
+
+    steps:
+      # 1. Descarga tu código del repositorio
+      - name: 📥 Descargar repositorio
+        uses: actions/checkout@v4
+
+      # 2. Instala Python
+      - name: 🐍 Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # 3. Instala las dependencias (feedparser y anthropic)
+      - name: 📦 Instalar dependencias
+        run: pip install -r requirements.txt
+
+      # 4. Ejecuta el script (usa el API key guardado en GitHub Secrets)
+      - name: 🤖 Generar clipping
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}  # ← guardado en GitHub Secrets
+        run: python clipping.py
+
+      # 5. Guarda el archivo generado en el repositorio
+      #    Así puedes ver todos tus clippings históricos en GitHub
+      - name: 💾 Guardar clipping en el repo
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add clippings/
+          git diff --staged --quiet || git commit -m "📱 Clipping $(date +'%d/%m/%Y')"
+          git push
