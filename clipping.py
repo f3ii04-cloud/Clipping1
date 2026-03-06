@@ -125,6 +125,7 @@ CRITERIOS DE SELECCIÓN (en orden de prioridad):
 2. Potencial de engagement en redes sociales (sorpresa, emoción, debate)
 3. Actualidad e inmediatez
 4. Variedad temática (evita seleccionar 5 noticias del mismo tema)
+5. Variedad mediática ( evita seleccionar 5 noticias de la misma fuente)
 
 Para cada noticia seleccionada, escribe:
 
