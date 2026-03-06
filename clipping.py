@@ -23,14 +23,14 @@ from pathlib import Path
 FEEDS = {
     # México
     "El Financiero tech" :    "https://www.elfinanciero.com.mx/arc/outboundfeeds/rss/?outputType=xml" ,
-    "El País tech":     "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/tecnologia/portada",
-    "El Universal tech": "http://www.eluniversal.com.mx/rss/computo.xml",
-    "Reforma gadgets": "https://www.reforma.com/rss/gadgets.xml",
+    "El País tech":           "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/section/tecnologia/portada",
+    "El Universal":           "http://www.eluniversal.com.mx/rss/mexico.xml",
+    "Reforma":                "https://www.reforma.com/rss/nacional.xml",
     
     # Internacionales
-    "BBC Mundo":    "https://feeds.bbci.co.uk/mundo/rss.xml",
-    "Reuters":      "https://feeds.reuters.com/reuters/topNews",
-    "NYT":       "https://rss.nytimes.com/services/xml/rss/nyt/es.xml",
+    "BBC Mundo":              "https://feeds.bbci.co.uk/mundo/rss.xml",
+    "Reuters":                "https://feeds.reuters.com/reuters/topNews",
+    "NYT":                    "https://rss.nytimes.com/services/xml/rss/nyt/es.xml",
     # Añade los que uses tú:
     # "Medio Custom": "https://url-del-rss.com/feed",
 }
@@ -38,8 +38,8 @@ FEEDS = {
 # ============================================================
 # ⚙️ CONFIGURACIÓN GENERAL
 # ============================================================
-NOTICIAS_POR_FUENTE = 5      # Cuántas noticias leer de cada medio
-NOTICIAS_FINALES = 5         # Cuántas incluir en el clipping final
+NOTICIAS_POR_FUENTE = 3      # Cuántas noticias leer de cada medio
+NOTICIAS_FINALES = 6         # Cuántas incluir en el clipping final
 CARPETA_SALIDA = "clippings"  # Carpeta donde se guardan los archivos
 
 
