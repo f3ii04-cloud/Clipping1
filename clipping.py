@@ -19,17 +19,25 @@ from pathlib import Path
 # ============================================================
 FEEDS = {
     # México - Negocios y Tech
-    "El CEO":               "https://elceo.com/feed/",
-    "Forbes México":        "https://www.forbes.com.mx/feed/",
-    "Expansión":            "https://expansion.mx/rss",
-    "El Financiero Tech":   "https://www.elfinanciero.com.mx/arc/outboundfeeds/rss/category/tech/",
-    "Startupeable":         "https://startupeable.com/feed/",
-    # Internacional con enfoque Latam
-    "TechCrunch":           "https://techcrunch.com/feed/",
-    "Contxto":              "https://contxto.com/feed/",
-    "Bloomberg Línea":      "https://bloomberglinea.com/arc/outboundfeeds/rss/",
-    # Finanzas y crypto
-    "CoinDesk":             "https://www.coindesk.com/arc/outboundfeeds/rss/",
+    "El CEO": "https://elceo.com/feed/",
+    "Forbes México": "https://forbes.com.mx/feed/",
+    "Expansión": "https://expansion.mx/rss",
+    "El Financiero Tech": "https://www.elfinanciero.com.mx/arc/outboundfeeds/rss/category/tech/",
+    "Startupeable": "https://startupeable.com/feed/",
+    
+    # Internacional con enfoque Latam / VC
+    "TechCrunch": "https://techcrunch.com/feed/",
+    "Contxto": "https://contxto.com/feed/",
+    "Bloomberg Línea": "https://bloomberglinea.com/arc/outboundfeeds/rss/",
+    "Latitud": "https://latitud.com/blog/feed",
+    "Rest of World": "https://restofworld.org/feed/",
+    
+    # Finanzas, Crypto y Global
+    "CoinDesk": "https://www.coindesk.com/arc/outboundfeeds/rss/",
+    "Axios Pro Rata": "https://www.axios.com/newsletters/pro-rata.rss",
+    "The Hustle": "https://thehustle.co/feed/",
+    "The Verge": "https://www.theverge.com/rss/index.xml",
+    "Hacker News": "https://news.ycombinator.com/rss"
 }
 
 # ============================================================
