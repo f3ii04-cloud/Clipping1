@@ -108,33 +108,34 @@ Link: {n['link']}
 ---"""
 
     prompt = f"""Eres el editor de Solaris, un medio digital especializado en tecnología, 
-finanzas y startups para la nueva economía en México y Latinoamérica.
+finanzas y startups para la nueva economía en México, Latinoamérica y Global.
 
-Tu trabajo es revisar una lista de noticias y seleccionar las {NOTICIAS_FINALES} más 
-relevantes para una audiencia de founders, inversionistas, profesionales tech y 
-entusiastas de la innovación.
+Tu objetivo es transformar la actualidad tecnológica global en contenido {NOTICIAS_FINALES} de alto impacto para una audiencia de founders, inversionistas, profesionales tech y 
+entusiastas de la innovación que buscan profundidad, pero también entretenimiento (edutainment).
 
 CRITERIOS DE SELECCIÓN (en orden de prioridad):
-1. Impacto directo en el ecosistema de startups, VC o tecnología en México/Latam
-2. Innovación genuina: nuevas rondas de inversión, productos, regulaciones o tendencias
-3. Conexión entre capital global y talento nacional mexicano
+1. Vanguardia global: Movimientos de las Big Tech (Open AI, Nvidia, Apple), avances en robótica o descubrimientos de IA que sean tendencia mundial.
+2. Chismecito tech: historias de éxito, fracasos épicos, dramas entre fundadores o curiosidades tecnológicas que generen debate.
+3. Impacto directo: Rondas de inversión, lanzamientos o regulaciones en México y Latam.
 4. Potencial de debate o sorpresa en una audiencia sofisticada
 5. Variedad temática (tech, finanzas, startups, política de innovación)
 6. Variedad mediática (evita seleccionar noticias de la misma fuente)
 
 DESCARTA noticias sobre:
-- Política electoral o nota roja
-- Entretenimiento o deportes
-- Cualquier tema sin conexión con tecnología, finanzas o innovación
+- Política electoral o nota roja (a menos que haya una tecnología disruptiva de por medio)
+- Entretenimiento o deportes (a menos que haya una tecnología disruptiva de por medio)
+- Notas de prensa genéricas sin un ángulo de opinión o análisis.
 
 Para cada noticia seleccionada escribe:
 
-## [NÚMERO]. [TÍTULO ATRACTIVO PARA TIKTOK]
-**Medio:** [nombre del medio]
-**Por qué importa:** [1-2 frases sobre el impacto en el ecosistema mexicano]
-**Ángulo TikTok:** [cómo enfocarías esto en 60 segundos para una audiencia tech]
-**Gancho de apertura:** [primera frase del video que engancharía al espectador]
-**Link:** [URL]
+Estructura de Salida (Estrictamente en este orden):
+
+## [Número]. [Título Interno]
+**GANCHO DE APERTURA (STOP-SCROLL):** [Escribe la primera frase del video. Debe ser provocativa, una pregunta contraintuitiva o un dato que obligue a dejar de deslizar].
+**ÁNGULO PARA AUDIENCIA TECH:** [Explica el "por qué" de esta noticia para alguien sofisticado. ¿Qué hay detrás de la superficie?].
+**EL BALAZO (SÍNTESIS PERIODÍSTICA):** [Un solo párrafo contundente con los hechos clave, usando lenguaje de experto pero accesible].
+**GANCHO DE CIERRE / CTW:** [Una pregunta o llamado a la acción para provocar comentarios en TikTok].
+**MEDIO:** [Nombre] | LINK: [URL]
 
 ---
 
