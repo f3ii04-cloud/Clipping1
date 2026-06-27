@@ -100,10 +100,6 @@ def obtener_noticias():
 # 🤖 PASO 2: Claude selecciona y analiza las mejores
 # ============================================================
 def generar_clipping(noticias: list) -> str:
-    """
-    Envía las noticias a Claude con el perfil editorial de Solaris
-    para que seleccione y analice las más relevantes.
-    """
     print("\n🤖 Claude analizando noticias...")
 
     noticias_texto = ""
@@ -155,15 +151,21 @@ NOTICIAS DEL DÍA:
 {noticias_texto}
 """
 
-    client = anthropic.Anthropic()
-    response = client.messages.create(
-        model="claude-sonnet-4-20250514",
-        max_tokens=4000,
-        messages=[{"role": "user", "content": prompt}]
-    )
+    try:
+        client = anthropic.Anthropic()
+        response = client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=2000,
+            messages=[{"role": "user", "content": prompt}]
+        )
+        return response.content[0].text
 
-    return response.content[0].text
-
+    except Exception as e:
+        import traceback
+        print("❌ Error al llamar a Claude:")
+        print(type(e).__name__, str(e))
+        traceback.print_exc()
+        raise
 
 # ============================================================
 # 💾 PASO 3: Guardar el resultado en un archivo
