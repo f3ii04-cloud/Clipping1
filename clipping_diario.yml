@@ -17,7 +17,7 @@ on:
   # UTC+2 en verano  → 5:00 UTC = 7:00 Madrid
   # Para no complicarlo, ponemos 6:00 UTC (ajusta si lo necesitas)
   schedule:
-    - cron: '30 3 * * 0-5'  # sábado a viernes a las 3:30 UTC (21:30 Mexico)
+   - cron: '0 12 * * 1-5' # sábado a viernes a las 06:00 Mexico
 
   # 🖱️ También puedes ejecutarlo manualmente desde GitHub cuando quieras
   workflow_dispatch:
